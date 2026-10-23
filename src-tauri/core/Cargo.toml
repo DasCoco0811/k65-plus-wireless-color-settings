@@ -1,0 +1,30 @@
+[package]
+name = "k65-color-core"
+version = "0.1.0"
+edition = "2021"
+description = "iCUE SDK binding, layout, light engine and keyboard input for K65 Plus Wireless Color Settings"
+publish = false
+license = "MIT"
+repository = "https://github.com/DasCoco0811/k65-plus-wireless-color-settings"
+
+[dependencies]
+libloading = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+log = "0.4"
+
+# The iCUE SDK is downloaded from Corsair's GitHub on first start (see sdk.rs).
+[target.'cfg(any(windows, target_os = "macos"))'.dependencies]
+ureq = { version = "3", default-features = false, features = ["native-tls"] }
+sha2 = "0.11"
+
+[target.'cfg(windows)'.dependencies]
+zip = { version = "9", default-features = false, features = ["deflate"] }
+windows-sys = { version = "0.61", features = [
+  "Win32_Foundation",
+  "Win32_System_LibraryLoader",
+  "Win32_UI_WindowsAndMessaging",
+] }
+
+[dev-dependencies]
+zip = { version = "9", default-features = false, features = ["deflate"] }

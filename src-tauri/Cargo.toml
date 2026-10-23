@@ -1,0 +1,35 @@
+[package]
+name = "k65-plus-wireless-color-settings"
+version = "0.1.0"
+description = "Reactive per-key lighting for the Corsair K65 PLUS WIRELESS"
+edition = "2021"
+publish = false
+license = "MIT"
+repository = "https://github.com/DasCoco0811/k65-plus-wireless-color-settings"
+default-run = "k65-plus-wireless-color-settings"
+
+[lib]
+name = "k65_color_settings_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+tauri-plugin-autostart = "2"
+tauri-plugin-single-instance = "2"
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+log = "0.4"
+env_logger = "0.11"
+k65-color-core = { path = "core" }
+
+[workspace]
+members = ["core"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
